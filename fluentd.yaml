@@ -1,8 +1,16 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: fluentd
+  namespace: logging
+  labels:
+    app: fluentd
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: fluentd
-  Namespace: logging
+  namespace: logging
 spec:
   replicas: 1
   selector:

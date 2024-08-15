@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: netchecker
+  name: fluent-bit
 spec:
   selector:
     matchLabels:
-      app: netchecker
+      app: fluent-bit
   template:
     metadata:
       labels:
-        app: netchecker
+        app: fluent-bit
     spec:
       containers:
         - name: busybox
