@@ -3,3 +3,8 @@
 /awscliv2.zip
 .idea/
 aws/
+elasticsearch/
+kibana/
+loki/
+loki-stack/
+promtail/

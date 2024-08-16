@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: elasticsearch
+  namespace: logging
   labels:
     app: elasticsearch
 spec:
@@ -23,18 +24,38 @@ spec:
               cpu: "500m"
           ports:
             - containerPort: 9200
+            - containerPort: 9300
+          env:
+            - name: discovery.type
+              value: "single-node"
+            - name: ELASTIC_PASSWORD
+              value: "elastic-search"
+            - name: xpack.security.enabled
+              value: "false"
+            - name: xpack.security.transport.ssl.enabled
+              value: "false"
+            - name: ES_JAVA_OPTS
+              value: "-Xms500m -Xmx1000m"
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: elasticsearch
+  name: elasticsearch-svc
   labels:
     app: elasticsearch
 spec:
   selector:
     app: elasticsearch
-  clusterIP: None
   ports:
-    - port: 9200
+    - name: elasticsearch-rest
+      nodePort: 30920
+      port: 9200
+      protocol: TCP
+      targetPort: 9200
+    - name: elasticsearch-nodecom
+      nodePort: 30930
+      port: 9300
+      protocol: TCP
       targetPort: 9300
+  type: NodePort
