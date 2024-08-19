@@ -31,55 +31,6 @@ subjects:
     namespace: logging
 
 ---
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: fluent-bit-config
-  namespace: logging
-data:
-  fluent-bit.conf: |
-    [SERVICE]
-        Flush        1
-        Daemon       Off
-        Log_Level    info
-        Parsers_File parsers.conf
-
-    @INCLUDE input-kubernetes.conf
-    @INCLUDE output-fluentd.conf
-
-  input-kubernetes.conf: |
-    [INPUT]
-        Name         tail
-        Path         /var/log/containers/*.log
-        Parser       docker
-        Tag          kube.*
-        DB           /fluent-bit/tail-db/fluent-bit-tail-db.db
-
-    [FILTER]
-        Name         kubernetes
-        Match        kube.*
-        Merge_Log    On
-        K8S-Logging.Parser On
-
-  output-fluentd.conf: |
-    [OUTPUT]
-        Name            forward
-        Match           kube.*
-        Host            fluentd.logging.svc.cluster.local
-        Port            24224
-        Logstash_Format On
-        Logstash_Prefix fluent-bit
-        Retry_Limit     False
-
-  parsers.conf: |
-    [PARSER]
-        Name         docker
-        Format       json
-        Time_Key     time
-        Time_Format  %Y-%m-%dT%H:%M:%S
-        Time_Keep    On
-
----
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -87,8 +38,6 @@ metadata:
   namespace: logging
   labels:
     app: fluent-bit-logging
-    version: v1
-    kubernetes.io/cluster-service: "true"
 spec:
   selector:
     matchLabels:
@@ -98,8 +47,6 @@ spec:
       labels:
         name: fluent-bit
         app: fluent-bit-logging
-        version: v1
-        kubernetes.io/cluster-service: "true"
     spec:
       containers:
         - name: fluent-bit
@@ -109,7 +56,7 @@ spec:
             - containerPort: 2020
           env:
             - name: FLUENTD_HOST
-              value: "10.1.0." #YOUR FLUENTD HOST IP
+              value: "fluentd.logging"
             - name: FLUENTD_PORT
               value: "24224"
           volumeMounts:
@@ -119,20 +66,20 @@ spec:
               mountPath: /var/lib/docker/containers
               readOnly: true
             - name: fluent-bit-config
-              mountPath: /fluent-bit/etc/
-          terminationGracePeriodSeconds: 10
-          volumes:
-            - name: varlog
-              hostPath:
-                path: /var/log
-            - name: varlibdockercontainers
-              hostPath:
-                path: /var/lib/docker/containers
-            - name: fluent-bit-config
-              configMap:
-                name: fluent-bit-config
-          serviceAccountName: fluent-bit
-          tolerations:
-          - key: node-role.kubernetes.io/master
-            operator: Exists
-            effect: NoSchedule
+              mountPath: /fluent-bit/etc
+              subPath: fluent-bit.conf
+      terminationGracePeriodSeconds: 10
+      volumes:
+        - name: varlog
+          hostPath:
+            path: /var/log
+        - name: varlibdockercontainers
+          hostPath:
+            path: /var/lib/docker/containers
+        - name: fluent-bit-config
+          configMap:
+            name: fluent-bit-config
+      serviceAccountName: fluent-bit
+      tolerations:
+        - key: node-role.kubernetes.io/control-plane
+          effect: NoSchedule
