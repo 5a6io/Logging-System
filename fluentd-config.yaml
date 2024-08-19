@@ -8,7 +8,6 @@ data:
     <source>
       @type forward
       port 24224
-      bind 0.0.0.0
     </source>
   
     <label @FLUENT_LOG>
@@ -16,8 +15,12 @@ data:
         @type elasticsearch
         host elasticsearch.logging
         port 9200
-        logstash_format true
+        ssl_verify_mode full
+        ssl_ca_path /fluentd/etc/certs/ca.crt
+        ssl_cert_path /fluentd/etc/certs/kibana.crt
+        ssl_key_path /fluentd/etc/certs/kibana.key
+        logstash_format false
         include_timestamp true
-        type_name log
+        tag_key @log_name
       </match>
     </label>
