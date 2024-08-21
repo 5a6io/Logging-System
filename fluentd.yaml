@@ -13,7 +13,6 @@ spec:
       labels:
         app: fluentd
     spec:
-      serviceAccountName: fluentd
       containers:
         - name: fluentd
           image: fluent/fluentd-kubernetes-daemonset:v1.17-debian-elasticsearch7-1
@@ -21,16 +20,11 @@ spec:
             - containerPort: 24224
           volumeMounts:
             - name: config
-              mountPath: /fluentd/etc/config
-            - name: ssl
-              mountPath: /fluentd/etc/certs
+              mountPath: /fluentd/etc/
       volumes:
         - name: config
           configMap:
             name: fluentd-config
-        - name: ssl
-          secret:
-            secretName: kibana-ssl
 
 ---
 apiVersion: v1

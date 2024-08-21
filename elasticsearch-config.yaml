@@ -4,12 +4,17 @@ metadata:
   name: elasticsearch-config
   namespace: logging
 data:
-  elasticsearch.yaml: |
+  elasticsearch.yml: |
     cluster.name: OliveSafety
     network.host: 0.0.0.0
+    http.port: 9200
     discovery.seed_hosts: ["elasticsearch-discovery"]
     xpack.security.enabled: true
-    xpack.security.transport.ssl.enabled: true
-    xpack.security.http.ssl.client_authentication: required
-    xpack.security.transport.ssl.keystore.path: certs/kibana.p12
-    xpack.security.transport.ssl.truststore.path: certs/kibana.p12
+    xpack.license.self_generated.type: basic
+#    xpack.security.transport.ssl.enabled: true
+#    xpack.security.transport.ssl.verification_mode: certificate
+#    xpack.security.transport.ssl.client_authentication: required
+#    xpack.security.transport.ssl.keystore.path: elastic-certificate.p12
+#    xpack.security.transport.ssl.truststore.path: elastic-certificate.p12
+#    xpack.security.http.ssl.enabled: true
+#    xpack.security.http.ssl.certificate_authorities

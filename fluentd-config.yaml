@@ -7,20 +7,19 @@ data:
   fluent.conf: |
     <source>
       @type forward
-      port 24224
+      <security>
+        self_hostname flb.local
+        shared_key secret
+      </security>
     </source>
-  
-    <label @FLUENT_LOG>
-      <match **>
-        @type elasticsearch
-        host elasticsearch.logging
-        port 9200
-        ssl_verify_mode full
-        ssl_ca_path /fluentd/etc/certs/ca.crt
-        ssl_cert_path /fluentd/etc/certs/kibana.crt
-        ssl_key_path /fluentd/etc/certs/kibana.key
-        logstash_format false
-        include_timestamp true
-        tag_key @log_name
-      </match>
-    </label>
+    
+    <match **>
+      @type elasticsearch
+      host elasticsearch.logging
+      port 9200
+      logstash_format true
+      include_timestamp true
+      user      olive
+      password  olivesafety!
+      ssl_verify false
+    </match>

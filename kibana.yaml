@@ -21,22 +21,22 @@ spec:
           image: kibana:7.17.0
           imagePullPolicy: IfNotPresent
           ports:
-          - containerPort: 5601
-            protocol: TCP
+            - containerPort: 5601
+              protocol: TCP
           volumeMounts:
             - mountPath: /usr/share/kibana/config/kibana.yml
               name: config
               subPath: kibana.yml
-            - name: ssl
-              mountPath: /usr/share/kibana/config/certs
-              readOnly: true
+          #            - name: ssl
+          #              mountPath: /usr/share/kibana/config/certs
+          #              readOnly: true
           env:
             - name: ELASTICSEARCH_URL
               value: http://elasticsearch.logging:9200
             - name: discovery.type
               value: single-node
             - name: ELASTICSEARCH_USERNAME
-              value: "admin"
+              value: "elastic"
             - name: ELASTICSEARCH_PASSWORD
               value: "olivesafety!"
             - name: SERVER_NAME
@@ -45,9 +45,9 @@ spec:
         - name: config
           configMap:
             name: kibana-config
-        - name: ssl
-          secret:
-            secretName: kibana-ssl
+#        - name: ssl
+#          secret:
+#            secretName: kibana-ssl
 
 ---
 apiVersion: v1
@@ -61,8 +61,8 @@ spec:
   selector:
     app: kibana
   ports:
-  - nodePort: 30651
-    port: 5601
-    protocol: TCP
-    targetPort: 5601
+    - nodePort: 30651
+      port: 5601
+      protocol: TCP
+      targetPort: 5601
   type: NodePort

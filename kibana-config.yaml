@@ -11,13 +11,3 @@ data:
     elasticsearch.hosts: [ "http://elasticsearch.logging:9200" ]
     elasticsearch.username: "${ELASTICSEARCH_USERNAME}"
     elasticsearch.password: "${ELASTICSEARCH_PASSWORD}"
-    elasticsearch.ssl.verificationMode: full
-    elasticsearch.ssl.certificate: /usr/share/kibana/config/certs/kibana.crt
-    elasticsearch.ssl.key: /usr/share/kibana/config/certs/kibana.key
-    elasticsearch.ssl.certificateAuthorities: ["/usr/share/kibana/config/certs/ca.crt"]
-    server.ssl.enabled: true
-    server.ssl.keystore.path: /usr/share/kibana/config/certs/kibana.p12
-    server.ssl.keystore.password: ""
-    xpack.encryptedSavedObjects.encryptionKey: "CHkluU0B82NXwL7OSaGQrZk3Ie8b4JpGUlYAYxo3tBs="
-    xpack.security.encryptionKey: "7zxAJ4mju1qNazOgF6Egw+04AuragZj5lqoKy7CSdVk="
-    xpack.reporting.encryptionKey: "QtmAxKO3x9CcpJVfmzcnfyXi57cdBSuJpJyVG8K4o5Q="
