@@ -11,3 +11,7 @@ data:
     elasticsearch.hosts: [ "http://elasticsearch.logging:9200" ]
     elasticsearch.username: "${ELASTICSEARCH_USERNAME}"
     elasticsearch.password: "${ELASTICSEARCH_PASSWORD}"
+    xpack.encryptedSavedObjects.encryptionKey: b026b9833ab11da535d14f4635162c6f
+    xpack.reporting.encryptionKey: 7eb06f82c78dc669464c441def6c61ae
+    xpack.security.encryptionKey: a475670e4744a009d20fd9e6daa15991
+    xpack.security.enabled: true
