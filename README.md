@@ -9,8 +9,8 @@
 - loki -> helm repo grafana
 - promtail -> helm repo grafana
 
-## ELK/EFK vs. GLP
+## ELK/EFK vs. PLG
 ### ELK
 
-### GLP
+### PLG
 
