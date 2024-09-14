@@ -1,6 +1,7 @@
 # Cloudwave Project
 ## Use Skill
 - kubernetes 1.30.0
+- helm 3.15.4
 
 ## Use Version
 - Fluent-bit:3.1.6➡️helm repo fluent
