@@ -11,7 +11,7 @@ metadata:
 spec:
   ingressClassName: "alb-ingress-class"
   rules:
-    - host: kibana.joon-test.shop
+    - host: ${{ secrets.SERVER_NAME }}
       http:
         paths:
           - path: /

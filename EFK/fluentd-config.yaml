@@ -19,7 +19,7 @@ data:
       port 9200
       logstash_format true
       include_timestamp true
-      user      olive
-      password  olivesafety!
+      user      ${{ secrets.ELASTICSEARCH_USERNAME }}
+      password  ${{ secrets.ELASTICSEARCH_PASSWORD }}
       ssl_verify false
     </match>

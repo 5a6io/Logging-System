@@ -5,7 +5,6 @@ metadata:
   namespace: logging
 data:
   elasticsearch.yml: |
-    cluster.name: OliveSafety
     network.host: 0.0.0.0
     http.port: 9200
     discovery.seed_hosts: ["elasticsearch-discovery"]

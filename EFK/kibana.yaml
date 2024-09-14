@@ -18,15 +18,11 @@ spec:
     spec:
       containers:
         - name: kibana
-          image: kibana:7.10.1
+          image: kibana:7.17.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5601
               protocol: TCP
-#          command:
-#            - "sh"
-#            - "-c"
-#            - "bin/kibana-plugin install https://d3g5vo6xdbdb9a.cloudfront.net/downloads/kibana-plugins/opendistro-alerting/opendistroAlertingKibana-1.13.0.0.zip"
           volumeMounts:
             - mountPath: /usr/share/kibana/config/kibana.yml
               name: config
@@ -40,11 +36,11 @@ spec:
             - name: discovery.type
               value: single-node
             - name: ELASTICSEARCH_USERNAME
-              value: "olive"
+              value: ${{ secrets.ELASTICSEARCH_USERNAME }}
             - name: ELASTICSEARCH_PASSWORD
-              value: "olivesafety!"
+              value: ${{ secrets.ELASTICSEARCH_PASSWORD }}
             - name: SERVER_NAME
-              value: http://kibana.joon-test.shop
+              value: ${{ secrets.SERVER_NAME }}
       volumes:
         - name: config
           configMap:

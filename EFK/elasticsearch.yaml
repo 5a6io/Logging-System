@@ -18,7 +18,7 @@ spec:
       serviceAccountName: elasticsearch-service-account
       containers:
         - name: elasticsearch
-          image: elasticsearch:7.10.1
+          image: elasticsearch:7.17.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 9200
