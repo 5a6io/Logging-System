@@ -25,8 +25,10 @@
 
 ## Conclusion
 ### EFK
+![EFK Image](./EFK/EFK.drawio.png)
 - 분석, 시각화 및 쿼리를 위한 최고의 유연성과 풍부한 기능을 제공하는 다양한 용도로 사용 가능.
 - ML 기능 탑재.
 ### PLG
+![PLG Image](./PLG/PLG.drawio.png)
 - 메타데이터 발견 메커니즘 때문에 Kubernetes 생태계에서 유용.
 - 시계열 기반 데이터를 그라파나와 로그로 쉽게 상호 연관시켜 관찰 가능.
