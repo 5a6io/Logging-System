@@ -1,14 +1,16 @@
 # Cloudwave Project
 ## Use Skill
+![Use Skills](https://go-skill-icons.vercel.app/api/icons?i=aws,kubernetes,helm)
 - kubernetes 1.30.0
 - helm 3.15.4
 
 ## Use Version
-- Fluent-bit:3.1.6➡️helm repo fluent
+![Use](https://go-skill-icons.vercel.app/api/icons?i=elasticsearch,kibana,grafana)
+- Fluent-bit:3.1.6 ➡️ helm repo fluent
 - Elasticsearch:7.17.0
 - Kibana:7.17.0
-- Loki➡️helm repo grafana
-- Promtail➡️helm repo grafana
+- Loki ➡️ helm repo grafana
+- Promtail ➡️ helm repo grafana
 
 ## EFK vs. PLG
 || **EFK** | **PLG** |
